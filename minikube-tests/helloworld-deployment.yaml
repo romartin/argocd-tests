@@ -16,6 +16,7 @@ spec:
     spec:
       containers:
       - name: helloworld
-        image: helloworld:0.0.1
+        #image: helloworld:0.0.1
+        image: quay.io/romartin/argocd-tests:latest
         ports:
         - containerPort: 8080
