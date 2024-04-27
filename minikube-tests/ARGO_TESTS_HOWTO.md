@@ -1,3 +1,15 @@
+# Build/update image
+
+Change helloworld.rb code.... then
+
+docker build -t helloworld:0.0.1 -f helloworld.dockerfile .
+docker tag helloworld:0.0.1 quay.io/romartin/argocd-tests
+
+docker login quay.io
+docker push quay.io/romartin/argocd-tests
+
+# Install and run minikube
+
 1.- Run minikube and deploy argoCD
 sh minikube-start.sh
 

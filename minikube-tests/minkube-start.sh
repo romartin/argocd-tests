@@ -1,6 +1,3 @@
-echo "Deleting old Minikube stuff"
-minikube delete
-
 echo "Starting Minikube"
 minikube start --driver=docker
 
