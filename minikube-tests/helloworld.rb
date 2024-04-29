@@ -8,7 +8,7 @@ while session = server.accept
   session.print "HTTP/1.1 200\r\n"
   session.print "Content-Type: text/html\r\n"
   session.print "\r\n"
-  session.print "Hello world7! my IP is #{IPSocket.getaddress(Socket.gethostname)}"
+  session.print "Hello world24! my IP is #{IPSocket.getaddress(Socket.gethostname)}"
 
   session.close
 end

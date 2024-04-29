@@ -2,11 +2,11 @@
 
 Change helloworld.rb code.... then
 
-docker build -t helloworld:0.0.1 -f helloworld.dockerfile .
-docker tag helloworld:0.0.1 quay.io/romartin/argocd-tests
+docker build -t quay.io/romartin/argocd-tests:latest -f helloworld.dockerfile .
+docker tag quay.io/romartin/argocd-tests:latest quay.io/romartin/argocd-tests:0.0.1
 
 docker login quay.io
-docker push quay.io/romartin/argocd-tests
+docker push quay.io/romartin/argocd-tests:0.0.1
 
 # Install and run minikube
 
