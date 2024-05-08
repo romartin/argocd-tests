@@ -33,4 +33,4 @@ dest ns: argocd
 kubectl cluster-info
 curl http://192.168.49.2:31000
 
-HELLO2
+HELLO3
