@@ -32,3 +32,5 @@ dest ns: argocd
 5. Checkout app 
 kubectl cluster-info
 curl http://192.168.49.2:31000
+
+HELLO
