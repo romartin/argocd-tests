@@ -1,0 +1,28 @@
+---
+
+name: Test workflow
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    name: Push main image
+    steps:
+      - name: Tag Name
+        id: tag_name
+        run: |
+          if [ "${{ github.event_name }}" == "pull_request" ]; then
+            echo "ROGER TEST - BUILD1"
+
+          elif [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            echo "ROGER TEST - BUILD2"
+
+          else
+            echo "ROGER TEST - BUILD3"
+          fi
