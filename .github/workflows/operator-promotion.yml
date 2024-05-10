@@ -23,7 +23,7 @@ jobs:
           repository: romartin/ansible-ai-connect-operator
           ref: romartin-AAP-23607
           path: ansible-ai-connect-operator
-          token: ${{ secrets.ROMARTIN_GIT_ACCESS_TOKEN }}
+          token: ${{ secrets.ROMARTIN_AAIC_GIT_ACCESS_TOKEN }}
 
       - name: Export wisdom service tag
         continue-on-error: false
@@ -34,6 +34,7 @@ jobs:
           echo "EXPECTED_TAG =${EXPECTED_TAG}"
         shell: bash
 
+      # TODO: This fails when nothing to commit - in case fired, but EXPECTED_TAG not changed
       - name: Update wisdom service tag
         continue-on-error: false
         run: |
