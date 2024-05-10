@@ -31,6 +31,7 @@ jobs:
           KUSTOMIZATION_FILE="./ansible-wisdom-ops/argocd/stage2-east/wisdom-service/kustomization.yaml"
           EXPECTED_TAG="$(sed -n 's/newTag: \(.*\)/\1/p' ${KUSTOMIZATION_FILE} | sed -e 's/^[[:space:]]*//')"
           echo "EXPECTED_TAG=${EXPECTED_TAG}" >> $GITHUB_ENV
+          echo "EXPECTED_TAG = ${EXPECTED_TAG}"
         shell: bash
 
       - name: Update wisdom service tag
