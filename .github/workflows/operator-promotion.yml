@@ -1,0 +1,51 @@
+name: Operator wisdom-service version upgrade
+
+on:
+  workflow_dispatch:
+
+jobs:
+  update_aaic_wisdom_version:
+    name: Update ansible_ai_connect_service tag in the AAIC repository
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: romartin//ansible-wisdom-ops
+          ref: romartin-AAP-23607
+          fetch-depth: 0
+          path: ansible-wisdom-ops
+
+      - uses: actions/checkout@v4
+        with:
+          repository: romartin//ansible-ai-connect-operator
+          ref: romartin-AAP-23607
+          path: ansible-ai-connect-operator
+          token: ${{ secrets.ROMARTIN_AAIC_GIT_ACCESS_TOKEN }}
+
+      - name: Export wisdom service tag
+        continue-on-error: false
+        run: |
+          KUSTOMIZATION_FILE="./ansible-wisdom-ops/argocd/stage2-east/wisdom-service/kustomization.yaml"
+          EXPECTED_TAG="$(sed -n 's/newTag: \(.*\)/\1/p' ${KUSTOMIZATION_FILE} | sed -e 's/^[[:space:]]*//')"
+          echo "EXPECTED_TAG=${EXPECTED_TAG}" >> $GITHUB_ENV
+        shell: bash
+
+      - name: Update wisdom service tag
+        continue-on-error: false
+        run: |
+          cd ansible-ai-connect-operator
+          tmp_version_file=$(mktemp)
+          jq --arg tag "${{ env.EXPECTED_TAG }}" ".ansible_ai_connect_service.imageTag = \"$tag\"" version_info.json > "tmp_version_file" && mv "tmp_version_file" version_info.json
+
+          git config user.name 'GitHub'
+          git config user.email 'noreply@github.com'
+          
+          git commit -am "Update ansible_ai_connect_service image tag"
+          git push
+        shell: bash
+
+ 
+
+
+
