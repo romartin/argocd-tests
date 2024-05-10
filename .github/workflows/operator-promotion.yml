@@ -15,13 +15,15 @@ jobs:
           ref: romartin-AAP-23607
           fetch-depth: 0
           path: ansible-wisdom-ops
+          token: ${{ secrets.ROMARTIN_GIT_ACCESS_TOKEN }}
+
 
       - uses: actions/checkout@v4
         with:
           repository: romartin//ansible-ai-connect-operator
           ref: romartin-AAP-23607
           path: ansible-ai-connect-operator
-          token: ${{ secrets.ROMARTIN_AAIC_GIT_ACCESS_TOKEN }}
+          token: ${{ secrets.ROMARTIN_GIT_ACCESS_TOKEN }}
 
       - name: Export wisdom service tag
         continue-on-error: false
