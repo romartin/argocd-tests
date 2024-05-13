@@ -41,15 +41,20 @@ jobs:
           cd ansible-ai-connect-operator
           tmp_version_file=$(mktemp)
           jq --arg tag "${{ env.EXPECTED_TAG }}" '.ansible_ai_connect_service.imageTag = $tag' version_info.json > "tmp_version_file" && mv "tmp_version_file" version_info.json
-
-          git config user.name 'GitHub'
-          git config user.email 'noreply@github.com'
-          
-          git commit -am "Update ansible_ai_connect_service image tag"
-          git push
         shell: bash
 
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "Update ansible_ai_connect_service image tag to ${{ env.EXPECTED_TAG }}"
+          committer: GitHub <noreply@github.com>
+          author: GitHub <noreply@github.com>
+          title: '[Automated PR] Update ansible_ai_connect_service image tag to ${{ env.EXPECTED_TAG }}'
+          body: 'This automated PR updates the ansible_ai_connect_service image tag to ${{ env.EXPECTED_TAG }}'
  
+
+
+
 
 
 
