@@ -35,7 +35,6 @@ jobs:
           echo "EXPECTED_TAG =${EXPECTED_TAG}"
         shell: bash
 
-      # TODO: This fails when nothing to commit - in case fired, but EXPECTED_TAG not changed
       - name: Update wisdom service tag
         continue-on-error: false
         run: |
@@ -44,6 +43,8 @@ jobs:
           jq --arg tag "${{ env.EXPECTED_TAG }}" '.ansible_ai_connect_service.imageTag = $tag' version_info.json > "tmp_version_file" && mv "tmp_version_file" version_info.json
         shell: bash
 
+      # TODO: Need for auto-merge settings in AAIC repo
+      #       See https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/incorporating-changes-from-a-pull-request/automatically-merging-a-pull-request
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
         with:
@@ -57,7 +58,8 @@ jobs:
           body: 'This automated PR updates the ansible_ai_connect_service image tag to ${{ env.EXPECTED_TAG }}'
           add-paths: "version_info.json"
           # TODO: WE DONT requested access for PR read/write? for Ansible PAT?
-          token: ${{ secrets.ROMARTIN_GIT_ACCESS_TOKEN }}
+          #       In case actions fails as Error: Resource not accessible by personal access token
+          token: ${{ secrets.ROMARTIN_AAIC_GIT_ACCESS_TOKEN }}
 
 
 
