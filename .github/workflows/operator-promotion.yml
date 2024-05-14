@@ -56,7 +56,8 @@ jobs:
           title: '[Automated PR] Update ansible_ai_connect_service image tag to ${{ env.EXPECTED_TAG }}'
           body: 'This automated PR updates the ansible_ai_connect_service image tag to ${{ env.EXPECTED_TAG }}'
           add-paths: "version_info.json"
-          token: ${{ secrets.ROMARTIN_AAIC_GIT_ACCESS_TOKEN }}
+          # TODO: WE DONT requested access for PR read/write? for Ansible PAT?
+          token: ${{ secrets.ROMARTIN_GIT_ACCESS_TOKEN }}
 
 
 
