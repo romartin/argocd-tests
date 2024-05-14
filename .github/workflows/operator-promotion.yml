@@ -49,7 +49,9 @@ jobs:
           commit-message: "Update ansible_ai_connect_service image tag to ${{ env.EXPECTED_TAG }}"
           committer: GitHub <noreply@github.com>
           author: GitHub <noreply@github.com>
-          branch: romartin-AAP-23607
+          branch: update-service-image-tag
+          delete-branch: true
+          path: ansible-ai-connect-operator
           title: '[Automated PR] Update ansible_ai_connect_service image tag to ${{ env.EXPECTED_TAG }}'
           body: 'This automated PR updates the ansible_ai_connect_service image tag to ${{ env.EXPECTED_TAG }}'
           add-paths: "version_info.json"
