@@ -1,0 +1,38 @@
+---
+
+name: Test git stuff
+
+on:
+   workflow_dispatch:
+
+jobs:
+  release:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          ref: refs/heads/main
+          fetch-depth: 0
+          path: argocd-tests
+
+      - name: Change something
+        continue-on-error: false
+        run: |
+          cd argocd-tests
+          echo "HELLO" >> README.md
+        shell: bash
+
+      - name: Create Pull Request
+        id: create_pr
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "Automated Test PR"
+          committer: GitHub <noreply@github.com>
+          author: GitHub <noreply@github.com>
+          branch: automated-pr-test
+          delete-branch: true
+          path: argocd-tests
+          title: 'Automated Test PR'
+          body: 'Automated Test PR'
