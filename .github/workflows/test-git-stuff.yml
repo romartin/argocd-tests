@@ -16,6 +16,7 @@ jobs:
           ref: refs/heads/main
           fetch-depth: 0
           path: argocd-tests
+          token: ${{ secrets.ROMARTIN_GIT_ACCESS_TOKEN }}
 
       - name: Change something
         continue-on-error: false
@@ -36,3 +37,4 @@ jobs:
           path: argocd-tests
           title: 'Automated Test PR'
           body: 'Automated Test PR'
+          token: ${{ secrets.ROMARTIN_GIT_ACCESS_TOKEN }}
