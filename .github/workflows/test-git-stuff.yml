@@ -38,3 +38,16 @@ jobs:
           title: 'Automated Test PR'
           body: 'Automated Test PR'
           token: ${{ secrets.ROMARTIN_GIT_ACCESS_TOKEN }}
+
+      - name: Automerge Pull Request
+        run: gh pr merge --merge --auto "${{ steps.create_pr.outputs.pull-request-number }}"
+        working-directory: ./argocd-tests
+        env:
+          GH_TOKEN: ${{ secrets.ROMARTIN_GIT_ACCESS_TOKEN }}
+
+      - name: Auto-approve Pull Request
+        if: steps.create_pr.outputs.pull-request-operation == 'created'
+        run: gh pr review --approve "${{ steps.create_pr.outputs.pull-request-number }}"
+        working-directory: ./argocd-tests
+        env:
+          GH_TOKEN: ${{ secrets.ROMARTIN_GIT_ACCESS_TOKEN }}
