@@ -1,19 +1,30 @@
 ---
 
-name: Test workflow
+name: Test1 workflow
 
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
   release:
     runs-on: ubuntu-latest
     name: Push main image
     steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          ref: refs/heads/main
+          fetch-depth: 0
+          token: ${{ secrets.ROMARTIN_GIT_ACCESS_TOKEN }}
+      - name: Export wisdom service tag
+        continue-on-error: false
+        run: |
+          KUSTOMIZATION_FILE="./assets/kustomization.yaml"
+          E0="$(yq '..  | select(has("name")) | select(.name == "*ansible-ai-connect-service")' ${KUSTOMIZATION_FILE})"
+          E1="$(sed -n 's/newTag: \(.*\)/\1/p' <<< ${E0})"
+          EXPECTED_TAG="$(echo -n ${E1} | sed -e 's/^[[:space:]]*//')"
+          echo "EXPECTED_TAG =${EXPECTED_TAG}"
+        shell: bash
       - name: Tag Name
         id: tag_name
         run: |
