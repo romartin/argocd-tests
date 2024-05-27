@@ -20,9 +20,8 @@ jobs:
         continue-on-error: false
         run: |
           KUSTOMIZATION_FILE="./assets/kustomization.yaml"
-          E0="$(yq '..  | select(has("name")) | select(.name == "*ansible-ai-connect-service")' ${KUSTOMIZATION_FILE})"
-          E1="$(sed -n 's/newTag: \(.*\)/\1/p' <<< ${E0})"
-          EXPECTED_TAG="$(echo -n ${E1} | sed -e 's/^[[:space:]]*//')"
+          SERVICE_DECL="$(yq '..  | select(has("name")) | select(.name == "*ansible-ai-connect-service")' ${KUSTOMIZATION_FILE})"
+          EXPECTED_TAG="$(sed -n 's/newTag: \(.*\)/\1/p' <<< ${SERVICE_DECL} | sed -e 's/^[[:space:]]*//')"
           echo "EXPECTED_TAG =${EXPECTED_TAG}"
         shell: bash
       - name: Tag Name

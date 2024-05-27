@@ -2,6 +2,6 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 images:
 - name: quay.io/ansible/ansible-ai-connect-service
-  newTag: 1.0.202405271755
+  newTag: 1.0.202405271751
 - name: quay.io/ansible/wisdom-service
-  newTag: 1.0.202405241949
+  newTag: 1.0.202405241943
